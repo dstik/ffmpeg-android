@@ -22,6 +22,7 @@ make clean
 --cpu="$CPU" \
 --enable-runtime-cpudetect \
 --sysroot="$NDK_SYSROOT" \
+--enable-debug \
 --enable-pic \
 --enable-libx264 \
 --enable-libass \
@@ -43,9 +44,9 @@ make clean
 --enable-static \
 --pkg-config="${2}/ffmpeg-pkg-config" \
 --prefix="${2}/build/${1}" \
---extra-cflags="-I${TOOLCHAIN_PREFIX}/include $CFLAGS" \
+--extra-cflags="-I/user/include -I${TOOLCHAIN_PREFIX}/include $CFLAGS" \
 --extra-ldflags="-L${TOOLCHAIN_PREFIX}/lib $LDFLAGS" \
---extra-libs="-lpng -lexpat -lm" \
+--extra-libs="-lpng -lexpat -lm -std=c99 -D__ANDROID_API__=18 -lz" \
 --extra-cxxflags="$CXX_FLAGS" || exit 1
 
 make -j${NUMBER_OF_CORES} && make install || exit 1
